@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>title</title>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="mydiv">표시</div>
+        <script type="text/babel">
+            class InputBox extends React.Component {
+                constructor(props) {
+                    super(props);
+                }
+
+                render() {
+                    return (
+                        <div>
+                            <label>키 : </label>
+                            <input onChange={this.props.handleHeightChange} name="talls" type="number" /><br />
+                            <label>몸무게 : </label>
+                            <input onChange={this.props.handleWeightChange} name="weights" type="number" /><br />
+
+                            <button onClick={this.props.handleWeightState}>
+                                결과
+                            </button>
+                            <div id="myTall">키 : {this.props.height}</div>
+                            <div id="myWeight"> 몸무게 : {this.props.weight}</div>
+                            <div id="result"> 결과 : {this.props.weightState}</div>
+                        </div>
+                    );
+                }
+            }
+
+            class App extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        height: 0,
+                        weight: 0,
+                        standardWeight: 0,
+                        weightRate: 0,
+                        weightState: ""
+                    };
+                    this.handleWeightChange = this.handleWeightChange.bind(this);
+                    this.handleHeightChange = this.handleHeightChange.bind(this);
+                    this.handleWeightRate = this.handleWeightRate.bind(this);
+                    this.handleWeightState = this.handleWeightState.bind(this);
+                }
+
+                handleWeightChange(event) {
+                    this.setState({ weight: event.target.value * 1 });
+                }
+
+                handleHeightChange(event) {
+                    this.setState({ height: event.target.value * 1 });
+                }
+
+                handleWeightRate() {
+                    this.setState(
+                        { standardWeight: (this.state.height - 100) * 0.85 },
+                        () => {
+                            this.setState(
+                                { weightRate: (this.state.weight / this.state.standardWeight) * 100 },
+                                () => {
+                                    this.handleWeightState();
+                                }
+                            );
+                        }
+                    );
+                }
+
+                handleWeightState() {
+                    if (this.state.weightRate <= 90) {
+                        this.setState({ weightState: '저체중' });
+                    } else if (this.state.weightRate <= 110) {
+                        this.setState({ weightState: '정상' });
+                    } else if (this.state.weightRate <= 120) {
+                        this.setState({ weightState: '과체중' });
+                    } else {
+                        this.setState({ weightState: '비만' });
+                    }
+                }
+
+                render() {
+                    return (
+                        <div>
+                            <InputBox
+                                height={this.state.height}
+                                weight={this.state.weight}
+                                weightState={this.state.weightState}
+
+                                handleWeightChange={this.handleWeightChange}
+                                handleHeightChange={this.handleHeightChange}
+                                handleWeightState={this.handleWeightRate}
+                            />
+                        </div>
+                    );
+                }
+            }
+
+            ReactDOM.render(<App />, mydiv);
+
+
+        </script>    
+    </body>
+</html>
+

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>title</title>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="mydiv">표시</div>
+        <script type="text/babel">
+
+            class App extends React.Component
+            {
+                constructor(props){
+                    super(props)
+                    this.state = {val1:0, val2:0, oper:"", result:0}
+                    this.chanegeOper = this.chanegeOper.bind(this) // event 등록
+                    this.changeFnVal1 = this.changeFnVal1.bind(this) // event 등록
+                    this.changeFnVal2 = this.changeFnVal2.bind(this) // event 등록
+                    this.handleOperate = this.handleOperate.bind(this) // event 등록
+
+                }
+
+                chanegeOper(){
+                    this.setState({oper:operation.value})
+                }
+
+                changeFnVal1(e){
+                    this.setState({val1:e.target.value*1})
+                }
+
+                changeFnVal2(e){
+                    this.setState({val2:e.target.value*1})
+                }
+
+                handleOperate(){
+                    console.log(this.state.oper)
+                    if (this.state.oper === "+"){
+                        this.setState({result:this.state.val1+this.state.val2})
+                    }
+                    else if (this.state.oper === "-"){
+                        this.setState({result:this.state.val1-this.state.val2})
+                    }
+                    else if (this.state.oper === "*"){
+                        this.setState({result:this.state.val1*this.state.val2})
+                    }
+
+                }
+                
+                render()
+                {
+                    return (
+                        <div>
+                            <select onChange={this.chanegeOper} id="operation">
+                                <option value="+"> + </option>
+                                <option value="*"> * </option>
+                                <option value="-"> - </option>
+                            </select><br/>
+                            <div> 숫자1 : <input onChange={this.changeFnVal1} type="number" id="val1" /></div><br/>
+                            <div> 숫자2 : <input onChange={this.changeFnVal2} type="number" id="val2" /></div><br/>
+
+                            <br/>
+                            <button onClick={this.handleOperate}> 계산 </button>
+                            <h1>{this.state.result}</h1>
+                        </div>
+
+                    )
+                }
+            }
+            
+            
+            ReactDOM.render(<App/>, mydiv)
+        </script>    
+    </body>
+</html>
+

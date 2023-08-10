@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <meta charset="UTF-8">
+    </header>
+    <script>
+        function rate(){
+            let t = document.getElementsByName("talls")[0].value*1
+            let w = document.getElementsByName("weihgts")[0].value*1
+
+            var standard_w = (t-100)*0.85
+            var w_rate = (w/standard_w)*100
+            console.log(t, w, standard_w, w_rate)
+            var r
+            var img
+            if (w_rate<=90){
+                img = '1.jpg'
+                r = "저체중"
+            }
+            else if (w_rate>90 && w_rate<=110)
+            {
+                img = '2.jpg'
+                r = "정상"
+            }
+            else if (w_rate>110 && w_rate<=120)
+            {
+                img = '3.jpg'
+                r = "과체중"
+            }
+            else
+            {
+                img = '4.jpg'
+                r = "비만"
+            }
+
+            myTall.innerHTML=`키 : ${t}`
+            myWeight.innerHTML=`몸무게 : ${w}`
+            result.innerHTML=`결과 : ${r}`
+            myimg.src=`image/${img}`
+        }
+    </script>
+    <body>
+        
+        <label>키 : </label>
+        <input name="talls" type="number"></input><br>
+        <br>
+        <label>몸무게 : </label>
+        <input name="weihgts" type="number"></input><br>
+        <br>
+
+        <button onclick="rate()">
+            결과
+        </button>
+        <br>
+        <br>
+        <div id="myTall">키 : </div>
+        <div id="myWeight"> 몸무게 : </div>
+        <div id="result"> 결과 : </div>
+
+        <img id="myimg" width = 120><br>
+        
+    </body>
+</html>

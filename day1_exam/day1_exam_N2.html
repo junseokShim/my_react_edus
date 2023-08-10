@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>타이틀</title>
+    </head>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script> <!-- babel을 통해 ecmaScript version 통합-->
+    <script type="text/babel">
+        let jarr=[{'name':'홍길동','age':20},{'name':'이순신','age':30}
+                        ,{'name':'임꺽정','age':40}]
+
+        // 문제 2-1번
+        for (let n of jarr){
+            if (n.age>=30){
+                console.log(n)
+            }
+        }
+
+        /* 
+        [OUTPUT]
+            {name: '이순신', age: 30}
+            {name: '임꺽정', age: 40}
+        */
+
+        // 문제 2-2번
+        for (let n of jarr){
+            if (n.name.includes('이')){
+                console.log(n)
+            }
+        }
+        /* 
+        [OUTPUT]
+            {name: '이순신', age: 30}
+        */
+
+        // 문제 2-3번
+        let age_arr = []
+        for (let n of jarr){
+            age_arr.push(n.age)
+        }
+        console.log(age_arr)
+        /* 
+        [OUTPUT]
+            [20, 30, 40]
+        */
+
+        // 문제 2-4번
+        let age_sum = age_arr.reduce((a,b)=>a+b)
+        console.log(age_sum)
+        /* 
+        [OUTPUT]
+            90
+        */
+    
+    
+    </script>
+    <body>
+    </body>
+</html>
